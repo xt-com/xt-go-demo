@@ -6,8 +6,8 @@ import (
 )
 
 const (
-	accesskey = ""
-	secretkey = ""
+	accesskey = "xxxxxxxxxxxxxxxxxxxxxxxxxx"
+	secretkey = "yyyyyyyyyyyyyyyyyyyyyyyyyy"
 )
 
 func TestSignAPI(t *testing.T) {

@@ -3,7 +3,7 @@ package v4
 import (
 	"encoding/json"
 	"fmt"
-	"gopy/sdk/response"
+	"sdk/response"
 	"strconv"
 	"time"
 
@@ -29,6 +29,12 @@ func NewRequestPerpare() *RequestPerpare {
 	}
 }
 
+/**
+ * @description:
+ * @param {*} k
+ * @param {*} queryVal
+ * @return {*}
+ */
 func (rp *RequestPerpare) queryStruct(s *gorequest.SuperAgent, content interface{}) (err error) {
 	if marshalContent, err := json.Marshal(content); err != nil {
 		return err
@@ -57,10 +63,19 @@ func (rp *RequestPerpare) queryStruct(s *gorequest.SuperAgent, content interface
 			}
 		}
 	}
+
 	return
 }
 
-// 发起请求QueryString
+// Make the request QueryString
+/**
+ * @description:
+ * @param {*} body
+ * @param {*} Success
+ * @param {*} url
+ * @param {*} true
+ * @return {*}
+ */
 func (rp *RequestPerpare) RequesParam(
 	method, url string,
 	headers map[string]string,
@@ -90,10 +105,19 @@ func (rp *RequestPerpare) RequesParam(
 	if errs != nil {
 		return response.APIResponse(errs[0].Error(), "Failed", url, false)
 	}
+
 	return response.APIResponse(body, "Success", url, true)
 }
 
-// 发起请求JsonBody
+// Make a request to JsonBody
+/**
+ * @description:
+ * @param {*} body
+ * @param {*} Success
+ * @param {*} url
+ * @param {*} true
+ * @return {*}
+ */
 func (rp *RequestPerpare) RequesJson(
 	method, url string,
 	headers map[string]string,
@@ -115,10 +139,6 @@ func (rp *RequestPerpare) RequesJson(
 		request.AppendHeader(k, v)
 	}
 
-	// fmt.Println("*******************************")
-	// fmt.Println("<header> ", request.Header)
-	// fmt.Println("<body> ", data)
-	// fmt.Println("*******************************")
 	_, body, err := request.End()
 	if err != nil {
 		fmt.Println(err[0].Error())

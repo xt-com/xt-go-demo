@@ -8,8 +8,8 @@ import (
 )
 
 const (
-	accesskey = "67783be7-b4ab-4ffc-ae3f-3268acc04c93"
-	secretkey = "0e16ad37592d894b75ad83aa01496a709a36475a"
+	accesskey = "xxxxxxxxxxxxxxxxxxxxxxxx"
+	secretkey = "yyyyyyyyyyyyyyyyyyyyyyyy"
 )
 
 func TestEntrustPlan(t *testing.T) {

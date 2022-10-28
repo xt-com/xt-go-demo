@@ -25,6 +25,13 @@ type Auth struct {
 	method     string
 }
 
+/**
+ * @description:
+ * @param {SignedHttpAPI} signed
+ * @param {*} path
+ * @param {string} method
+ * @return {*}
+ */
 func NewAuth(signed SignedHttpAPI, path, method string) *Auth {
 
 	return &Auth{
@@ -34,7 +41,12 @@ func NewAuth(signed SignedHttpAPI, path, method string) *Auth {
 	}
 }
 
-// 生成签名
+// To generate the signature
+/**
+ * @description:
+ * @param {*} nil
+ * @return {*}
+ */
 func createSigned(xy, secret string) string {
 	keys := []byte(secret)
 	h := hmac.New(sha256.New, keys)
@@ -43,12 +55,23 @@ func createSigned(xy, secret string) string {
 	return hex.EncodeToString(h.Sum(nil))
 }
 
-// 判断是否进行urlencoded编码
+// urlencode encoding is determined
+/**
+ * @description:
+ * @param {bool} value
+ * @return {*}
+ */
 func (a *Auth) SetUrlencode(value bool) {
 	a.urlencoded = value
 }
 
-// 生成请求头
+// Generating request headers
+/**
+ * @description:
+ * @param {*} xt
+ * @param {*} value
+ * @return {*}
+ */
 func (a *Auth) createHeader() url.Values {
 	u := url.Values{}
 	u.Set("xt-validate-algorithms", XT_VALIDATE_ALGORITHMS)
@@ -61,7 +84,12 @@ func (a *Auth) createHeader() url.Values {
 	return u
 }
 
-// 构造请求需要的请求头和参数
+// The headers and parameters needed to construct the request
+/**
+ * @description:
+ * @param {*} map
+ * @return {*}
+ */
 func (a Auth) createPayload(data map[string]interface{}) (headers map[string]string, err error) {
 	var tmp, decode, X, Y string
 
@@ -115,5 +143,6 @@ func (a Auth) createPayload(data map[string]interface{}) (headers map[string]str
 	for k, v := range header {
 		headers[k] = v[0]
 	}
+
 	return
 }

@@ -13,11 +13,11 @@ func init() {
 	case "pro":
 		BaseUrl = "https://fapi.xt.com"
 	case "dev":
-		BaseUrl = "http://fapi.xt.com"
+		BaseUrl = "https://fapi.xt.com"
 	case "test":
-		BaseUrl = "http://fapi.xt.com"
+		BaseUrl = "https://fapi.xt.com"
 	default:
-		BaseUrl = "http://fapi.xt.com"
+		BaseUrl = "https://fapi.xt.com"
 	}
 
 }

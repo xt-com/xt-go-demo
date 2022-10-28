@@ -2,41 +2,40 @@ package spot
 
 import (
 	"fmt"
-	"gopy/sdk/response"
-	v4 "gopy/sdk/xt/v4"
+	"sdk/response"
+	v4 "sdk/xt/v4"
 )
 
-// TODO 迭代成选项模式
 type XTPublicSpotHelper interface {
 	// Public
-	GetServerTime() *response.APIBody                              // 获取服务器时间
-	GetCoinsInfo() *response.APIBody                               // 获取币种信息
-	GetMarketConfig(data map[string]interface{}) *response.APIBody // 获取市场配置信息
-	GetAllMarketConfig() *response.APIBody                         // 获取所有交易对的配置信息
-	GetDepth(data map[string]interface{}) *response.APIBody        // 获取市场深度
-	GetKline(data map[string]interface{}) *response.APIBody        // 获取K线信息
-	GetTrades(data map[string]interface{}) *response.APIBody       // 获取最近成交信息
-	GetTicker(data map[string]interface{}) *response.APIBody       // 获取最新市场信息
-	GetFullTicker(data map[string]interface{}) *response.APIBody   // 获取所有币种最新市场信息
-	GetBestTicker(data map[string]interface{}) *response.APIBody   // 获取最优的市场信息
-	Get24hTicker(data map[string]interface{}) *response.APIBody    // 获取24小时市场的信息
+	GetServerTime() *response.APIBody                              // Getting the server time
+	GetCoinsInfo() *response.APIBody                               // Get the currency information
+	GetMarketConfig(data map[string]interface{}) *response.APIBody // Get market configuration info
+	GetAllMarketConfig() *response.APIBody                         // Get configuration information for all pairs
+	GetDepth(data map[string]interface{}) *response.APIBody        //  Get the market depth
+	GetKline(data map[string]interface{}) *response.APIBody        // Get k-line information
+	GetTrades(data map[string]interface{}) *response.APIBody       // Get the most recent transaction
+	GetTicker(data map[string]interface{}) *response.APIBody       // Get the latest market information
+	GetFullTicker(data map[string]interface{}) *response.APIBody   // Get the latest market information for all currencies
+	GetBestTicker(data map[string]interface{}) *response.APIBody   // Get the best market information
+	Get24hTicker(data map[string]interface{}) *response.APIBody    // Get information about the 24-hour market
 }
 
 type XTPrivateSpotHelper interface {
 	// Private
-	GetOrder(data map[string]interface{}) *response.APIBody         // 查询订单信息
-	GetOrderList(data map[string]interface{}) *response.APIBody     // 查询订单信息
-	CancelOrder(orderId string) *response.APIBody                   // 撤销订单
-	SendOrder(data map[string]interface{}) *response.APIBody        // 下单
-	GetBatchOrder(data map[string]interface{}) *response.APIBody    // 批量获取订单
-	SendBatchOrder(data map[string]interface{}) *response.APIBody   // 批量下单
-	BatchCancelOrder(data map[string]interface{}) *response.APIBody // 批量撤销订单
-	GetOpenOrder(data map[string]interface{}) *response.APIBody     // 获取未完成订单
-	CancelOpenOrder(data map[string]interface{}) *response.APIBody  // 撤销未完成订单
-	GetHistoryOrder(data map[string]interface{}) *response.APIBody  // 获取历史订单
-	GetUserTrade(data map[string]interface{}) *response.APIBody     // 获取账户成交信息
-	GetBalance(data map[string]interface{}) *response.APIBody       // 获取余额
-	GetListenKey() *response.APIBody                                // 获取ListenKey
+	GetOrder(data map[string]interface{}) *response.APIBody         // Query order information
+	GetOrderList(data map[string]interface{}) *response.APIBody     // Query order information
+	CancelOrder(orderId string) *response.APIBody                   // Cancel the order
+	SendOrder(data map[string]interface{}) *response.APIBody        // order
+	GetBatchOrder(data map[string]interface{}) *response.APIBody    // Get orders in bulk
+	SendBatchOrder(data map[string]interface{}) *response.APIBody   //  Bulk order
+	BatchCancelOrder(data map[string]interface{}) *response.APIBody // Batch cancel order
+	GetOpenOrder(data map[string]interface{}) *response.APIBody     // Get the outstanding order
+	CancelOpenOrder(data map[string]interface{}) *response.APIBody  // Cancel the outstanding order
+	GetHistoryOrder(data map[string]interface{}) *response.APIBody  // Get order history
+	GetUserTrade(data map[string]interface{}) *response.APIBody     // Get account transaction information
+	GetBalance(data map[string]interface{}) *response.APIBody       // Get the balance
+	GetListenKey() *response.APIBody                                // get ListenKey
 }
 
 type SignedHttpAPI struct {
@@ -490,7 +489,7 @@ type PublicHttpAPI struct {
  *   "mc": "SUCCESS",
  *   "ma": [],
  *   "result": {
- *       "serverTime": 1662435658062  //服务器时间
+ *       "serverTime": 1662435658062
  *    }
  *  }
  */

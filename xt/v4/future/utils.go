@@ -33,6 +33,13 @@ type Auth struct {
 	method     string
 }
 
+/**
+ * @description:
+ * @param {SignedFutureHttpAPI} signed
+ * @param {*} path
+ * @param {string} method
+ * @return {*}
+ */
 func NewAuth(signed SignedFutureHttpAPI, path, method string) *Auth {
 
 	return &Auth{
@@ -42,7 +49,12 @@ func NewAuth(signed SignedFutureHttpAPI, path, method string) *Auth {
 	}
 }
 
-// 生成签名
+// To generate the signature
+/**
+ * @description:
+ * @param {*} nil
+ * @return {*}
+ */
 func createSigned(xy, secret string) string {
 	keys := []byte(secret)
 	h := hmac.New(sha256.New, keys)
@@ -51,26 +63,41 @@ func createSigned(xy, secret string) string {
 	return hex.EncodeToString(h.Sum(nil))
 }
 
-// 判断是否进行urlencoded编码
+// urlencode encoding is determined
+/**
+ * @description:
+ * @param {bool} value
+ * @return {*}
+ */
 func (a *Auth) SetUrlencode(value bool) {
 	a.urlencoded = value
 }
 
+/**
+ * @description:
+ * @param {*} rep
+ * @return {*}
+ */
 func (a *Auth) testGetServertime() {
+
 	RepBody = &Body{}
 	publicFutureHttpAPI := PublicFutureHttpAPI{}
 	rep := publicFutureHttpAPI.GetServerTime()
 	json.Unmarshal([]byte(rep.Data), RepBody)
+
 }
 
-// 生成请求头
+// Generating request headers
+/**
+ * @description:
+ * @param {*} xt
+ * @param {*} value
+ * @return {*}
+ */
 func (a *Auth) createHeader() url.Values {
 
-	// TODO ********************
 	a.testGetServertime()
-	// nt := time.Now().UnixMilli()
 	nt := RepBody.Result
-	// TODO ********************
 
 	u := url.Values{}
 	u.Set("xt-validate-appkey", a.signed.Accesskey)
@@ -81,6 +108,11 @@ func (a *Auth) createHeader() url.Values {
 }
 
 // Change encode
+/**
+ * @description:
+ * @param {*} u
+ * @return {*}
+ */
 func (a Auth) escape(data map[string]interface{}) (tmp string, err error) {
 
 	u := make([]string, 0)
@@ -106,10 +138,16 @@ func (a Auth) escape(data map[string]interface{}) (tmp string, err error) {
 		}
 	}
 	tmp = strings.Join(u, "&")
+
 	return
 }
 
-// 构造请求需要的请求头和参数
+// The headers and parameters needed to construct the request
+/**
+ * @description:
+ * @param {*} map
+ * @return {*}
+ */
 func (a Auth) createPayload(data map[string]interface{}) (headers map[string]string, err error) {
 	var tmp, decode, X, Y string
 
@@ -142,8 +180,6 @@ func (a Auth) createPayload(data map[string]interface{}) (headers map[string]str
 		}
 	}
 
-	fmt.Println("XY>>>>", X+Y)
-
 	signature := createSigned(X+Y, a.signed.Secretkey)
 	header.Set("xt-validate-signature", signature)
 	header.Set("Content-Type", decode)
@@ -152,5 +188,6 @@ func (a Auth) createPayload(data map[string]interface{}) (headers map[string]str
 	for k, v := range header {
 		headers[k] = v[0]
 	}
+
 	return
 }
