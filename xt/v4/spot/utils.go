@@ -12,10 +12,10 @@ import (
 )
 
 const (
-	XT_VALIDATE_ALGORITHMS            = "HmacSHA256"
-	XT_VALIDATE_RECVWINDOW            = "5000"
-	XT_VALIDATE_CONTENTTYPE_URLENCODE = "application/x-www-form-urlencoded"
-	XT_VALIDATE_CONTENTTYPE_JSON      = "application/json;charset=UTF-8"
+	VALIDATE_ALGORITHMS            = "HmacSHA256"
+	VALIDATE_RECVWINDOW            = "5000"
+	VALIDATE_CONTENTTYPE_URLENCODE = "application/x-www-form-urlencoded"
+	VALIDATE_CONTENTTYPE_JSON      = "application/json;charset=UTF-8"
 )
 
 type Auth struct {
@@ -74,9 +74,9 @@ func (a *Auth) SetUrlencode(value bool) {
  */
 func (a *Auth) createHeader() url.Values {
 	u := url.Values{}
-	u.Set("validate-algorithms", XT_VALIDATE_ALGORITHMS)
+	u.Set("validate-algorithms", VALIDATE_ALGORITHMS)
 	u.Set("validate-appkey", a.signed.Accesskey)
-	u.Set("validate-recvwindow", XT_VALIDATE_RECVWINDOW)
+	u.Set("validate-recvwindow", VALIDATE_RECVWINDOW)
 	nt := time.Now().UnixMilli()
 	value := strconv.FormatInt(nt, 10)
 	u.Set("validate-timestamp", value)
@@ -96,7 +96,7 @@ func (a Auth) createPayload(data map[string]interface{}) (headers map[string]str
 	// 构造X
 	header := a.createHeader()
 	X = header.Encode()
-	decode = XT_VALIDATE_CONTENTTYPE_JSON
+	decode = VALIDATE_CONTENTTYPE_JSON
 
 	if a.urlencoded {
 		u := url.Values{}
@@ -116,7 +116,7 @@ func (a Auth) createPayload(data map[string]interface{}) (headers map[string]str
 			}
 		}
 		tmp = u.Encode()
-		decode = XT_VALIDATE_CONTENTTYPE_URLENCODE
+		decode = VALIDATE_CONTENTTYPE_URLENCODE
 	}
 
 	if len(data) <= 0 {
