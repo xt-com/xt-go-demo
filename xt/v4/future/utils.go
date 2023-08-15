@@ -100,9 +100,9 @@ func (a *Auth) createHeader() url.Values {
 	nt := RepBody.Result
 
 	u := url.Values{}
-	u.Set("xt-validate-appkey", a.signed.Accesskey)
+	u.Set("validate-appkey", a.signed.Accesskey)
 	value := strconv.FormatInt(nt, 10)
-	u.Set("xt-validate-timestamp", value)
+	u.Set("validate-timestamp", value)
 
 	return u
 }
@@ -181,7 +181,7 @@ func (a Auth) createPayload(data map[string]interface{}) (headers map[string]str
 	}
 
 	signature := createSigned(X+Y, a.signed.Secretkey)
-	header.Set("xt-validate-signature", signature)
+	header.Set("validate-signature", signature)
 	header.Set("Content-Type", decode)
 
 	headers = make(map[string]string)
